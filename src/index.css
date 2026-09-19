@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+@theme {
+  /* ——— Earthy palette ——— */
+  --color-paper: #f3eee1;
+  --color-paper-deep: #e9e1cd;
+  --color-cream: #faf6ea;
+  --color-ink: #14261c;
+  --color-ink-soft: #495b4e;
+  --color-forest: #1d3a2b;
+  --color-pine: #2c5340;
+  --color-moss: #57724a;
+  --color-sage: #a7b896;
+  --color-sand: #d8c9a6;
+  --color-clay: #b26e3f;
+  --color-clay-deep: #8a5130;
+  --color-amber: #e0a83b;
+
+  /* ——— Type ——— */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Tiro Devanagari Hindi", Georgia, serif;
+
+  /* ——— Motion ——— */
+  --animate-marquee: marquee 36s linear infinite;
+  --animate-marquee-slow: marquee 68s linear infinite;
+  --animate-float-y: float-y 7s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 18s linear infinite;
+  --animate-kenburns: kenburns 14s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-dot: pulse-dot 2.2s ease-in-out infinite;
+  --animate-pop: pop 0.55s cubic-bezier(0.22, 1.4, 0.36, 1) both;
+  --animate-sway: sway 7s ease-in-out infinite;
+  --animate-fade-swap: fade-swap 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes float-y {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes kenburns {
+    from {
+      transform: scale(1.14);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    50% {
+      transform: scale(1.7);
+      opacity: 1;
+    }
+  }
+  @keyframes pop {
+    0% {
+      transform: scale(0.35);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  @keyframes sway {
+    0%,
+    100% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(4deg);
+    }
+  }
+  @keyframes fade-swap {
+    from {
+      opacity: 0;
+      transform: translateY(16px) scale(0.985);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-paper font-body text-ink antialiased overflow-x-clip;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-clay) 85%, transparent);
+    color: var(--color-cream);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-moss);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  img {
+    @apply select-none;
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-paper);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-moss) 72%, transparent);
+    border-radius: 999px;
+    border: 2px solid var(--color-paper);
+  }
+}
+
+@layer utilities {
+  /* Vertical scripture text */
+  .vertical-rl {
+    writing-mode: vertical-rl;
+  }
+
+  /* Recycled paper textures blended into section backgrounds */
+  .tex-paper {
+    background-color: var(--color-paper);
+    background-image: url("/images/paper-texture.jpg");
+    background-size: 760px;
+    background-blend-mode: multiply;
+  }
+  .tex-cream {
+    background-color: var(--color-cream);
+    background-image: url("/images/paper-texture.jpg");
+    background-size: 760px;
+    background-blend-mode: multiply;
+  }
+  .tex-dark {
+    background-color: var(--color-forest);
+    background-image: url("/images/paper-texture.jpg");
+    background-size: 760px;
+    background-blend-mode: soft-light;
+  }
+  .tex-ink {
+    background-color: var(--color-ink);
+    background-image: url("/images/paper-texture.jpg");
+    background-size: 760px;
+    background-blend-mode: soft-light;
+  }
+
+  /* Film grain overlay (fixed, above everything) */
+  .grain-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 240px;
+  }
+
+  /* Outlined display text */
+  .text-stroke-cream {
+    -webkit-text-stroke: 1px color-mix(in oklab, var(--color-cream) 22%, transparent);
+    color: transparent;
+  }
+
+  /* Paper tape strip */
+  .tape {
+    background: repeating-linear-gradient(
+      -45deg,
+      color-mix(in oklab, var(--color-amber) 42%, transparent) 0 6px,
+      color-mix(in oklab, var(--color-amber) 30%, transparent) 6px 12px
+    );
+    box-shadow: 0 1px 3px rgb(20 38 28 / 0.18);
+    backdrop-filter: blur(1px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
